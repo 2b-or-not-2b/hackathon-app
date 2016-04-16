@@ -22,7 +22,7 @@ def post_cashtag():
         'title': 'Fund Our Hackathon Team!',
         'min_price': '9999',
         'tag_type': 'support',
-        'description_txt': 'We only get to hack for 24 hours, so give us money during that time or something!',
+        'description_txt': 'We only get to hack for 24 hours.\nSo give us money during that time or something!',
         'video': '',
         'image': '',
         'rewards': '',
