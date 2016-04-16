@@ -63,9 +63,11 @@ angular.module('starter.services', [])
     title: 'Happy forever!!!',
     desc: 'Hi friends, we are happy to announce our wedding...',
     video: '',
-    image: 'img/ben.png',
-    supporters: [],
+    image: 'img/rock_band.jpg',
+    supporters: [1, 3],
     rewards: [],
+    raised_money: 456.80,
+    share_url: 'http://somethingcool.com',
     min_price: 0,
     name: 'Max Lynx',
     lastText: 'Hey, it\'s me',
@@ -76,9 +78,11 @@ angular.module('starter.services', [])
     title: 'Monthly Rent Ready',
     desc: 'Dear home renters, you can pay your monthly...',
     video: '',
-    image: 'img/ben.png',
+    image: 'img/rock_band.jpg',
     supporters: [],
     rewards: [],
+    raised_money: 456.80,
+    share_url: 'http://somethingcool.com',
     min_price: 0,
     share_url: '',
     username: 'ben',
@@ -90,9 +94,11 @@ angular.module('starter.services', [])
     title: 'Brickell garage sale',
     desc: 'Use this hash if you want to purchase something here...',
     video: '',
-    image: 'img/ben.png',
+    image: 'img/rock_band.jpg',
     supporters: [],
     rewards: [],
+    raised_money: 456.80,
+    share_url: 'http://somethingcool.com',
     min_price: 0,
     name: 'Adam Bradleyson',
     lastText: 'I should buy a boat',
@@ -103,9 +109,11 @@ angular.module('starter.services', [])
     title: 'Just be fun with us :) ;)',
     desc: 'Hi guys, we are hosting a big stuff here, Free beers included, the minimal support is just 10 box.',
     video: '',
-    image: 'img/ben.png',
+    image: 'img/rock_band.jpg',
     supporters: [],
     rewards: [],
+    raised_money: 456.80,
+    share_url: 'http://somethingcool.com',
     min_price: 10,
     name: 'Perry Governor',
     lastText: 'Look at my mukluks!',
@@ -116,9 +124,11 @@ angular.module('starter.services', [])
     title: 'Help us please?',
     desc: 'Our cute Emily is so sick, and unfurtunately, we cannot afford the payments',
     video: '',
-    image: 'img/ben.png',
+    image: 'img/rock_band.jpg',
     supporters: [],
     rewards: [],
+    raised_money: 456.80,
+    share_url: 'http://somethingcool.com',
     min_price: 0,
     name: 'Mike Harrington',
     lastText: 'This is wicked good ice cream.',
@@ -147,7 +157,20 @@ angular.module('starter.services', [])
         hash.image = 'img/rock_band.jpg';
         hash.tag_name = '#support_my_band';
         hash.desc = 'Guys, if you like this music, support us';
+        hash.share_url= 'http://something.funny.com';
+        hash.raised_money = 0;
+        hash.supporters = [1];
+
         defer.resolve(hash);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
+    },
+    pledge: function(){
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve({});
       } else {
         defer.reject();
       }
@@ -267,4 +290,22 @@ angular.module('starter.services', [])
     },
     getBasic: function() {},
   };
-});
+})
+
+//TODO: We are not using it
+.factory('ShareHash', function($q) {
+  return {
+    share: function(hash) {
+      var defer = $q.defer();
+      if (1) {
+        hash.share_url = 'http://aquinama.com';
+        defer.resolve(hash);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
+    },
+  };
+})
+
+;

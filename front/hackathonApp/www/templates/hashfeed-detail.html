@@ -4,11 +4,33 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{hashfeed.name}}">
+<ion-view view-title="{{hash.title}}">
   <ion-content class="padding">
-    <img ng-src="{{hashfeed.image}}" style="width: 64px; height: 64px">
-    <p>
-      {{hashfeed.desc}}
-    </p>
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="{{hash.face}}">
+        <h2>{{hash.tag_name}}</h2>
+        <p>{{hash.title}}</p>
+      </div>
+      <div class="item item-body">
+        <img class="full-image" src="{{hash.image}}">
+        <p>
+          {{hash.desc}}
+        </p>
+        <p>
+          <span>
+            <i class="ion-social-usd"></i>
+            {{hash.raised_money}}
+          </span>
+          <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
+          <button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>
+        </p>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" placeholder="Last Name">
+          </label>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

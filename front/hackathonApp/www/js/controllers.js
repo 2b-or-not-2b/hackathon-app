@@ -31,28 +31,65 @@ angular.module('starter.controllers', [])
 // Our stuff
 //-------------------------------------------------------------
 
-.controller('HashFeedCtrl', function($scope, HashFeeds) {
+.controller('HashFeedCtrl', function($scope, HashFeeds,$timeout) {
   $scope.hashfeeds = HashFeeds.all();
+  $scope.doRefresh = function(){
+    $timeout(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 2000);
+    return;
+  };
   $scope.remove = function(hashfeed) {
     HashFeeds.remove(hashfeed);
   };
 })
 
 .controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds) {
-  $scope.hashfeed = HashFeeds.get($stateParams.hashfeedId);
+  $scope.hash = HashFeeds.get($stateParams.hashfeedId);
+  $scope.ui = {
+    showPledgeOptions: 0
+  };
+  $scope.pledgeAction = function(){
+    // HashFeeds.pledge(hash).then(function(data){
+    //   console.log(data);
+    //   if(data){
+
+    //   }
+    //   // $scope.hash = data;
+    //   // $scope.ui.showDetail = 1;
+    // });
+    $scope.ui.showPledgeOptions = 1;
+  }
 })
 
-.controller('HashCreateCtrl', function($scope, $stateParams, HashFeeds, Friends, CurrentUser) {
+.controller('HashCreateCtrl', function($scope, $stateParams, HashFeeds, Friends, CurrentUser, $rootScope) {
   // $scope.hashfeed = HashFeeds.get($stateParams.hashfeedId);
-  $scope.hash = HashFeeds.getBasic();
-  $scope.friends = Friends.all();
-  $scope.user = CurrentUser.get();
+
+  init();
+  var unbindListenerStart = $rootScope.$on('$stateChangeStart', function (event, toState) {
+    unbindListenerStart();
+    init();
+  });
+
+  function init(){
+    $scope.hash = HashFeeds.getBasic();
+    $scope.hash = HashFeeds.getBasic();
+    $scope.friends = Friends.all();
+    $scope.user = CurrentUser.get();
+    $scope.ui = {
+      showDetail: 0
+    };
+  }
+
+  console.log('Here!!!');
 
   $scope.createAction = function(){
     var hash = $scope.hash;
     HashFeeds.create(hash).then(function(data){
       console.log('Somehitng else');
       console.log(data);
+      $scope.hash = data;
+      $scope.ui.showDetail = 1;
     });
     // Call the service create the card and then going
     // to the new url
