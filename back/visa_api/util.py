@@ -6,6 +6,49 @@ __author__ = '2b||!2b'
 BASE_URL = 'https://sandbox.api.visa.com'
 
 
+def reverse_funds(S):
+    uri = '/visadirect/fundstransfer/v1/reversefundstransactions/'
+    body = json.loads('''{
+	  "acquirerCountryCode": "608",
+	  "acquiringBin": "408999",
+	  "amount": "24.01",
+	  "cardAcceptor": {
+	    "address": {
+	      "country": "USA",
+	      "county": "San Mateo",
+	      "state": "CA",
+	      "zipCode": "94404"
+	    },
+	    "idCode": "VMT200911026070",
+	    "name": "Visa Inc. USA-Foster City",
+	    "terminalId": "365539"
+	  },
+	  "localTransactionDateTime": "2016-04-16T22:24:51",
+	  "originalDataElements": {
+	    "acquiringBin": "408999",
+	    "approvalCode": "20304B",
+	    "systemsTraceAuditNumber": "897825",
+	    "transmissionDateTime": "2016-04-16T22:24:51"
+	  },
+	  "pointOfServiceCapability": {
+	    "posTerminalEntryCapability": "2",
+	    "posTerminalType": "4"
+	  },
+	  "pointOfServiceData": {
+	    "motoECIIndicator": "0",
+	    "panEntryMode": "90",
+	    "posConditionCode": "00"
+	  },
+	  "retrievalReferenceNumber": "330000550000",
+	  "senderCardExpiryDate": "2015-10",
+	  "senderCurrencyCode": "USD",
+	  "senderPrimaryAccountNumber": "4895100000055127",
+	  "systemsTraceAuditNumber": "451050",
+	  "transactionIdentifier": "381228649430011"
+	}''')
+    r = S.post(BASE_URL + uri, json=body)
+    return r
+
 def pull_funds(S):
     uri = '/visadirect/fundstransfer/v1/pullfundstransactions/'
     body = json.loads('''{
@@ -36,7 +79,6 @@ def pull_funds(S):
     }''')
     r = S.post(BASE_URL + uri, json=body)
     return r
-
 
 def push_funds(S):
     uri = '/visadirect/fundstransfer/v1/pushfundstransactions/'
@@ -81,6 +123,20 @@ def push_funds(S):
     r = S.post(BASE_URL + uri, json=body)
     return r
 
+def reverse():
+    user_id = '5RR5JQ34LMHPV8ZRQYOG21U5avMv8m06-Sv04yCoWlP_xI6ag'
+    password = 'k7zV8AgB4F3q33BDJ'
+    cert = './visa_api/cert_newest.pem'
+    key = './visa_api/key_newest.pem'
+
+    with vdp_utils.MSession(user_id, password, cert, key) as S:
+        S.headers.update({'content-type': 'application/json',
+                          'accept': 'application/json'})
+        r = reverse_funds(S)
+
+    print(r.status_code)
+    print(r.content)
+    return r
 
 def push():
     user_id = '5RR5JQ34LMHPV8ZRQYOG21U5avMv8m06-Sv04yCoWlP_xI6ag'
