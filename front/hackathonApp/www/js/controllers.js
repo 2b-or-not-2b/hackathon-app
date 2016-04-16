@@ -25,4 +25,36 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+
+//-------------------------------------------------------------
+// Our stuff
+//-------------------------------------------------------------
+
+.controller('HashFeedCtrl', function($scope, HashFeeds) {
+  $scope.hashfeeds = HashFeeds.all();
+  $scope.remove = function(hashfeed) {
+    HashFeeds.remove(hashfeed);
+  };
+})
+
+.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds) {
+  $scope.hashfeed = HashFeeds.get($stateParams.hashfeedId);
+})
+
+.controller('HashCreateCtrl', function($scope, $stateParams, HashFeeds, Friends, CurrentUser) {
+  // $scope.hashfeed = HashFeeds.get($stateParams.hashfeedId);
+  $scope.hash = HashFeeds.getBasic();
+  $scope.friends = Friends.all();
+  $scope.user = CurrentUser.get();
+
+  $scope.createAction = function(){
+    var hash = $scope.hash;
+    HashFeeds.create(hash).then(function(data){
+      console.log('Somehitng else');
+      console.log(data);
+    });
+    // Call the service create the card and then going
+    // to the new url
+  }
 });
