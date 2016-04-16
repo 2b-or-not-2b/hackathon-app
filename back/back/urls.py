@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from cashtag.views import profile_view, feed_view, cashtag_view
+from users.views import user_view
 # from django.contrib import admin
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
     url(r'^api/profile/?', profile_view),
     url(r'^api/feed/?', feed_view),
     url(r'^api/cashtag/?', cashtag_view),
+    url(r'^api/user/?', user_view),
 ]

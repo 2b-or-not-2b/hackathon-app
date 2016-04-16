@@ -57,7 +57,6 @@ class CashTag(mongoengine.Document):
                 'supporters': self.supporters
             }
             if json_dumps:
-                print('doing json dump')
                 return json.dumps(data)
             return data
         except Exception as e:
