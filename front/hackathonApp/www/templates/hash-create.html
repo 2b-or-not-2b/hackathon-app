@@ -6,7 +6,7 @@
 -->
 <ion-view view-title="Create a Hash">
   <ion-content class="padding">
-  <div class="list card">
+  <div class="list card" ng-show="ui.showDetail">
     <div class="item item-avatar">
       <img src="{{user.face}}">
       <h2>{{hash.tag_name}}</h2>
@@ -18,45 +18,50 @@
         {{hash.desc}}
       </p>
       <p>
-        <a href="#" class="subdued">1 Like</a>
-        <a href="#" class="subdued">5 Comments</a>
+        <span>
+          {{hash.raised_money}}
+          <i class="ion-social-usd"></i>
+        </span>
+        <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
+        <button class="button icon-left ion-android-share-alt button-positive share-button"></button>
       </p>
     </div>
-
   </div>
-    <img ng-src="{{user.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{hash.tag_name}}
-    </p>
-    <div class="list">
-      <label class="item item-input">
-        <input type="text" placeholder="#awesometag" ng-model="hash.tag_name">
-      </label>
-      <label class="item item-input">
-        <input type="text" placeholder="title" ng-model="hash.title">
-      </label>
-      <label class="item item-input">
-        <input type="text" placeholder="Image Url" ng-model="hash.image">
-      </label>
-      <label class="item item-input">
-        <input type="number" placeholder="Min Amount" ng-model="hash.min_price">
-      </label>
-      <h4 class="title title-left">Share with:</h4>
-      <div class="list list-inset">
-        <div class="item item-avatar item-button-right" ng-repeat="friend in friends">
-            <img src="{{friend.face}}">
-            <h2>Venkman</h2>
-           <label class="checkbox">
-                  <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked">
-               </label>
-                  </div>
-      </div>
-      <ion-list>
-        <ion-checkbox ng-model="filter.blue">Also, The world ;)</ion-checkbox>
-      </ion-list>
-      <div class="padding">
-        <button ng-click="createAction()" class="button button-block button-positive activated">Submit</button>
-      </div>
+    <div class="padding" ng-show="ui.showDetail">
+      <a href="#/tab/hashfeed" class="button button-block button-stable activated icon-left ion-chevron-left">Go to the Feed</a>
     </div>
+  <p ng-show="!ui.showDetail">
+    {{hash.tag_name}}
+  </p>
+  <div class="list" ng-show="!ui.showDetail">
+    <label class="item item-input">
+      <input type="text" placeholder="#awesometag" ng-model="hash.tag_name">
+    </label>
+    <label class="item item-input">
+      <input type="text" placeholder="title" ng-model="hash.title">
+    </label>
+    <label class="item item-input">
+      <input type="text" placeholder="Image Url" ng-model="hash.image">
+    </label>
+    <label class="item item-input">
+      <input type="number" placeholder="Min Amount" ng-model="hash.min_price">
+    </label>
+    <h4 class="title title-left">Share with:</h4>
+    <div class="list list-inset">
+      <div class="item item-avatar item-button-right" ng-repeat="friend in friends">
+          <img src="{{friend.face}}">
+          <h2>Venkman</h2>
+         <label class="checkbox">
+                <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked">
+             </label>
+                </div>
+    </div>
+    <ion-list>
+      <ion-checkbox ng-model="filter.blue">Also, The world ;)</ion-checkbox>
+    </ion-list>
+    <div class="padding">
+      <button ng-click="createAction()" class="button button-block button-positive activated">Submit</button>
+    </div>
+  </div>
   </ion-content>
 </ion-view>

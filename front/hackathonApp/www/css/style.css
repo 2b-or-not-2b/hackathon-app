@@ -36,3 +36,20 @@
     right: 5px;
     top: 12px;
 }
+
+.supporters{
+  margin-left: 115px;
+}
+
+.share-button{
+  float: right;
+  min-width: 45px;
+  min-height: 20px;
+  padding: 0 9px;
+}
+
+.button.icon.share-button:before, 
+.button.icon-left.share-button:before, 
+.button.icon-right.share-button:before {
+    line-height: 33px;
+}
