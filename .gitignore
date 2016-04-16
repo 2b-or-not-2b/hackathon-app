@@ -147,3 +147,6 @@ temp/
 *.log
 *.swp
 
+.idea/
+.idea/*
+db.sqlite3
