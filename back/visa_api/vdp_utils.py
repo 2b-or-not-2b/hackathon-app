@@ -2,8 +2,15 @@ import requests
 from calendar import timegm
 from datetime import datetime
 from hashlib import sha256
-from urlparse import urlparse
 import hmac
+
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
+    from urllib import urlopen
+
 """
 vdp_utils
 ~~~~~~~~~
