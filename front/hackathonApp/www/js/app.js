@@ -77,6 +77,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  //-------------------------------------------------------------
+  // Our stuff
+  //-------------------------------------------------------------
+
+  .state('tab.hashfeed', {
+      url: '/hashfeed',
+      views: {
+        'tab-hashfeed': {
+          templateUrl: 'templates/tab-hashfeed.html',
+          controller: 'HashFeedCtrl'
+        }
+      }
+  })
+
+  .state('tab.hashfeed-detail', {
+    url: '/hashfeed/:hashfeedId',
+    views: {
+      'tab-hashfeed': {
+        templateUrl: 'templates/hashfeed-detail.html',
+        controller: 'HashFeedDetailCtrl'
+      }
+    }
+  })
+
+  .state('tab.hashfeed-create', {
+    url: '/hash/create',
+    views: {
+      'tab-hashfeed': {
+        templateUrl: 'templates/hash-create.html',
+        controller: 'HashCreateCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

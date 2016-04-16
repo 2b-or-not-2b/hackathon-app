@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Chats', function($q) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -46,5 +46,225 @@ angular.module('starter.services', [])
       }
       return null;
     }
+  };
+})
+
+//-------------------------------------------------------------
+// Our stuff
+//-------------------------------------------------------------
+
+.factory('HashFeeds', function($q) {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var friends = [{
+    id: 0,
+    tag_name: '#mywedding',
+    title: 'Happy forever!!!',
+    desc: 'Hi friends, we are happy to announce our wedding...',
+    video: '',
+    image: 'img/ben.png',
+    supporters: [],
+    rewards: [],
+    min_price: 0,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 1,
+    tag_name: '#buildNe2S_april_rent',
+    title: 'Monthly Rent Ready',
+    desc: 'Dear home renters, you can pay your monthly...',
+    video: '',
+    image: 'img/ben.png',
+    supporters: [],
+    rewards: [],
+    min_price: 0,
+    share_url: '',
+    username: 'ben',
+    name: 'Ben Sparrow',
+    face: 'img/ben.png'
+  }, {
+    id: 2,
+    tag_name: '#garage_sale_brickell',
+    title: 'Brickell garage sale',
+    desc: 'Use this hash if you want to purchase something here...',
+    video: '',
+    image: 'img/ben.png',
+    supporters: [],
+    rewards: [],
+    min_price: 0,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    tag_name: '#big_party_miami2016',
+    title: 'Just be fun with us :) ;)',
+    desc: 'Hi guys, we are hosting a big stuff here, Free beers included, the minimal support is just 10 box.',
+    video: '',
+    image: 'img/ben.png',
+    supporters: [],
+    rewards: [],
+    min_price: 10,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    tag_name: '#help_emily_baby',
+    title: 'Help us please?',
+    desc: 'Our cute Emily is so sick, and unfurtunately, we cannot afford the payments',
+    video: '',
+    image: 'img/ben.png',
+    supporters: [],
+    rewards: [],
+    min_price: 0,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return friends;
+    },
+    remove: function(chat) {
+      friends.splice(friends.indexOf(hashfeed), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < friends.length; i++) {
+        if (friends[i].id === parseInt(chatId)) {
+          return friends[i];
+        }
+      }
+      return null;
+    },
+    create: function(hash){
+      console.log('Receiving the hash here ;)');
+      var defer = $q.defer();
+      if (1) {
+        hash.image = 'img/rock_band.jpg';
+        hash.tag_name = '#support_my_band';
+        hash.desc = 'Guys, if you like this music, support us';
+        defer.resolve(hash);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
+    },
+    getBasic: function(chatId) {
+      var basic = {
+        tag_name: '',
+        title: '',
+        desc: '',
+        video: '',
+        image: '',
+        supporters: [],
+        rewards: [],
+        min_price: 0,
+        share_url: '',
+        username: '',
+        name: '',
+        face: ''
+      };
+      return basic;
+    },
+  };
+})
+
+.factory('Friends', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var friends = [{
+    id: 0,
+    username: 'max',
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 1,
+    username: 'ben',
+    name: 'Ben Sparrow',
+    lastText: 'Hey, it\'s me',
+    face: 'img/ben.png'
+  }, {
+    id: 2,
+    username: 'adam',
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    username: 'perry',
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    username: 'mike',
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return friends;
+    },
+    remove: function(chat) {
+      friends.splice(friends.indexOf(hashfeed), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < friends.length; i++) {
+        if (friends[i].id === parseInt(chatId)) {
+          return friends[i];
+        }
+      }
+      return null;
+    },
+    getBasic: function(chatId) {
+      var basic = {
+        tag_name: '',
+        title: '',
+        desc: '',
+        video: '',
+        image: '',
+        supporters: [],
+        rewards: [],
+        min_price: 0,
+        share_url: '',
+        username: '',
+        name: '',
+        face: ''
+      };
+      return basic;
+    },
+  };
+})
+
+.factory('CurrentUser', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var user = {
+    id: 60,
+    username: 'cody',
+    name: 'Cody Greene',
+    lastText: 'Hey, it\'s me',
+    face: 'img/cody.jpg'
+  };
+
+  return {
+    all: function() {
+      return user;
+    },
+    remove: function() {
+    },
+    get: function() {
+      return user;
+    },
+    getBasic: function() {},
   };
 });
