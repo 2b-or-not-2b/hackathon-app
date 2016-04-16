@@ -12,3 +12,4 @@ class CashTagUser(mongoengine.Document):
 
     friends = mongoengine.ListField()
     contacts = mongoengine.ListField()
+

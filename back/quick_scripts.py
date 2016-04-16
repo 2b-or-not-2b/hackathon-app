@@ -1,10 +1,18 @@
 import requests
 from mongoengine import DoesNotExist
 
+from cashtag.models import CashTag
 from users.models import CashTagUser
 from util.mongo_utils import connect_to_mongodb_if_not_connected
 
 __author__ = '2b||!2b'
+
+
+def drop_dat_db():
+    for cash_tag in CashTag.objects():
+        cash_tag.delete()
+    for cash_tag_user in CashTagUser.objects():
+        cash_tag_user.delete()
 
 
 def post_cashtag():
@@ -33,7 +41,13 @@ def get_posted_cashtag(pk):
     print(response)
     assert response.ok
     assert response.status_code == 200
-    assert response.json()['_id'] == pk
+    json_data = response.json()
+    assert json_data['_id'] == pk
+    assert json_data['creator_username'] == 'neil'
+
+    neil_user = CashTagUser.objects.get(username='neil')
+    print(neil_user.cashtags_created_active)
+    assert pk in neil_user.cashtags_created_active
 
 
 def create_test_users():
@@ -47,7 +61,7 @@ def create_test_users():
         )
         test_user.save()
 
-    user_info = ['neil', 'cody', 'daariel']
+    user_info = ['neil', 'cody', 'dariel']
     users_created = []
     users_were_created_this_test = False
     for username in user_info:
@@ -75,7 +89,7 @@ def create_test_users():
 
 
 def verify_test_users():
-    user_info = ['neil', 'cody', 'daariel']
+    user_info = ['neil', 'cody', 'dariel']
     for username in user_info:
         user = CashTagUser.objects.get(username=username)
         assert user.username == username
@@ -94,11 +108,46 @@ def verify_test_users():
     print('User creatiom verified')
 
 
+def make_users_follow_cashtags(cashtag_pk):
+    cody_user = CashTagUser.objects.get(username='cody')
+    dariel_user = CashTagUser.objects.get(username='dariel')
+
+    neil_cashtag = CashTag.objects(creator_username='neil')[0]
+    pk = str(neil_cashtag.pk)
+
+    cody_user.cashtags_contributed_to.append(pk)
+    dariel_user.cashtags_contributed_to.append(pk)
+    cody_user.cashtags_watching.append(pk)
+
+    cody_user.save()
+    dariel_user.save()
+
+
+def get_user_cashtags(username, num_active, num_contrib, num_watching):
+    user = CashTagUser.objects.get(username=username)
+
+    active_cashtags = user.cashtags_created_active
+    contributed_cashtags = user.cashtags_contributed_to
+    watching_cashtags = user.cashtags_watching
+
+    assert len(active_cashtags) == num_active
+    assert len(contributed_cashtags) == num_contrib
+    assert len(watching_cashtags) == num_watching
+    print('User cashtag tests passed for user ' + username)
+
+
 if __name__ == '__main__':
+    connect_to_mongodb_if_not_connected()
+    drop_dat_db()
+
+    create_test_users()
+    verify_test_users()
+
     pk = post_cashtag()
     get_posted_cashtag(pk)
 
-    connect_to_mongodb_if_not_connected()
-    create_test_users()
-    verify_test_users()
+    make_users_follow_cashtags(pk)
+    get_user_cashtags('neil', 1, 0, 0)
+    get_user_cashtags('cody', 0, 1, 1)
+    get_user_cashtags('dariel', 0, 1, 0)
 

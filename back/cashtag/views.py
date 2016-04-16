@@ -5,6 +5,7 @@ from django.shortcuts import render
 from mongoengine import DoesNotExist
 
 from cashtag.models import CashTag
+from users.models import CashTagUser
 
 __author__ = '2b||!2b'
 
@@ -93,6 +94,14 @@ def cashtag_create(request):
         try:
             cashtag.save()
             print('saved succesfully!')
+            try:
+                create_user = CashTagUser.objects.get(username=creator_username)
+                create_user.cashtags_created_active.append(str(cashtag.pk))
+                create_user.save()
+            except DoesNotExist:
+                # hackathon, that's fine
+                print('user {} not found. Continuing anyways (because hackathon)'.format(creator_username))
+                pass
         except Exception as e:
             print(e)
             exit()
