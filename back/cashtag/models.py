@@ -10,6 +10,7 @@ __author__ = '2b||!2b'
 class Contribution(mongoengine.Document):
     username = mongoengine.StringField()
     amount = mongoengine.DecimalField()
+    cashtag_pk = mongoengine.StringField()
     notes = mongoengine.StringField()
     timestamp = mongoengine.DateTimeField()
 
@@ -28,6 +29,7 @@ class CashTag(mongoengine.Document):
     image = mongoengine.StringField()
     rewards = mongoengine.ListField()
     supporters = mongoengine.ListField()
+    days_to_live = mongoengine.IntField(default=30)
 
     """{
             'name': <string>,
@@ -52,7 +54,7 @@ class CashTag(mongoengine.Document):
             user = CashTagUser.objects.get(username=username)
             return {
                 'username': user.username,
-                'avatar': user.avatar,
+                'avatar_img_url': user.avatar_img_url,
                 'amount': CashTagUser.get_user_contributions_total(username=username, cashtag_pk=self.pk),
             }
 

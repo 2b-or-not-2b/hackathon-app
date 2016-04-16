@@ -1,7 +1,8 @@
 import requests
+from decimal import Decimal
 from mongoengine import DoesNotExist
 
-from cashtag.models import CashTag
+from cashtag.models import CashTag, Contribution
 from users.models import CashTagUser
 from util.mongo_utils import connect_to_mongodb_if_not_connected
 
@@ -13,6 +14,8 @@ def drop_dat_db():
         cash_tag.delete()
     for cash_tag_user in CashTagUser.objects():
         cash_tag_user.delete()
+    for contrib in Contribution.objects():
+        contrib.delete()
 
 
 def post_cashtag():
@@ -20,7 +23,7 @@ def post_cashtag():
     data = {
         'creator_username': 'neil',
         'title': 'Fund Our Hackathon Team!',
-        'min_price': '9999',
+        'min_price': '10',
         'tag_type': 'support',
         'description_txt': 'We only get to hack for 24 hours.\nSo give us money during that time or something!',
         'video': '',
@@ -72,6 +75,7 @@ def create_test_users():
             user = CashTagUser(
                 username=username,
                 password='password',
+                money_able_to_send=100
             )
             user.save()
         users_created.append(user)
@@ -112,18 +116,16 @@ def make_users_follow_cashtags(cashtag_pk):
     cody_user = CashTagUser.objects.get(username='cody')
     dariel_user = CashTagUser.objects.get(username='dariel')
 
-    neil_cashtag = CashTag.objects(creator_username='neil')[0]
-    pk = str(neil_cashtag.pk)
-
-    cody_user.cashtags_contributed_to.append(pk)
-    dariel_user.cashtags_contributed_to.append(pk)
-    cody_user.cashtags_watching.append(pk)
+    cody_user.contribute_to(cashtag_pk=cashtag_pk, amount=20)
+    cody_user.contribute_to(cashtag_pk=cashtag_pk, amount=30)
+    dariel_user.contribute_to(cashtag_pk=cashtag_pk, amount=100)
+    dariel_user.stop_watching(cashtag_pk=cashtag_pk)
 
     cody_user.save()
     dariel_user.save()
 
 
-def get_user_cashtags(username, num_active, num_contrib, num_watching):
+def get_user_cashtags(username, num_active, num_contrib, num_watching, money_left):
     user = CashTagUser.objects.get(username=username)
 
     active_cashtags = user.cashtags_created_active
@@ -131,8 +133,10 @@ def get_user_cashtags(username, num_active, num_contrib, num_watching):
     watching_cashtags = user.cashtags_watching
 
     assert len(active_cashtags) == num_active
-    assert len(contributed_cashtags) == num_contrib
+    assert len(Contribution.objects(username=username)) == num_contrib
     assert len(watching_cashtags) == num_watching
+    assert user.money_able_to_send == Decimal(money_left)
+
     print('User cashtag tests passed for user ' + username)
 
 
@@ -147,7 +151,7 @@ if __name__ == '__main__':
     get_posted_cashtag(pk)
 
     make_users_follow_cashtags(pk)
-    get_user_cashtags('neil', 1, 0, 0)
-    get_user_cashtags('cody', 0, 1, 1)
-    get_user_cashtags('dariel', 0, 1, 0)
+    get_user_cashtags('neil', 1, 0, 0, 100)
+    get_user_cashtags('cody', 0, 2, 1, 50)
+    get_user_cashtags('dariel', 0, 1, 0, 0)
 

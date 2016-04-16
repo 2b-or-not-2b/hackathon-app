@@ -72,6 +72,7 @@ def cashtag_create(request):
     video = post_data.get('video')
     image = post_data.get('image')
     rewards = post_data.get('rewards')
+    days_to_live = post_data.get('days_to_live') or 30
 
     video = video or None
     image = image or None
@@ -88,6 +89,7 @@ def cashtag_create(request):
         video=video,
         image=image,
         rewards=rewards,
+        days_to_live=days_to_live,
     )
     if cashtag.validate_cashtag():
         print('validated!')
