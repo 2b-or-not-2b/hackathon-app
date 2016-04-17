@@ -42,7 +42,7 @@ class CashTag(mongoengine.Document):
         if not self.description_html:
             self.description_html = '<div>{}</div>'.format(self.description_txt.replace('\n', '<br/>'))
 
-            self.tag_name = self.title + '-' + self.creator_username
+            # self.tag_name = self.title + '-' + self.creator_username
         if not self.min_price:
             self.min_price = 0
 

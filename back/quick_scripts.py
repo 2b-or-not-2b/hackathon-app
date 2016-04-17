@@ -22,10 +22,11 @@ def post_cashtag():
     print('POSTing cashtag')
     data = {
         'creator_username': 'neil',
-        'title': 'Fund Our Hackathon Team!',
-        'min_price': '10',
+        'tag_name': '#emergecashtag',
+        'title': 'Help Fund Our App',
+        'min_price': '1',
         'tag_type': 'support',
-        'description_txt': 'We only get to hack for 24 hours.\nSo give us money during that time or something!',
+        'description_txt': 'Help fund our app!\nTurn our hackathon entry into something bigger!!',
         'video': '',
         'image': '',
         'rewards': '',
@@ -140,6 +141,53 @@ def get_user_cashtags(username, num_active, num_contrib, num_watching, money_lef
     print('User cashtag tests passed for user ' + username)
 
 
+def create_more_sample_cashtags():
+    data = {
+        'creator_username': 'cody',
+        'tag_name': '#newlaptop',
+        'title': 'Cody Needs a new Laptop',
+        'min_price': '1',
+        'tag_type': 'support',
+        'description_txt': 'Apparently coding in the bathtub is a bad idea :(\nAny donations will help me get a new laptop to replace my fried one.',
+        'video': '',
+        'image': '',
+        'rewards': '',
+    }
+    response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
+    assert response.ok
+    assert response.status_code == 201
+
+    data = {
+        'creator_username': 'dariel',
+        'tag_name': '#garage_sale_brickell',
+        'title': 'Brickell Garage Sale',
+        'min_price': '1',
+        'tag_type': 'support',
+        'description_txt': "Looking to sell old goods I don't need anymore",
+        'video': '',
+        'image': '',
+        'rewards': '',
+    }
+    response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
+    assert response.ok
+    assert response.status_code == 201
+
+    data = {
+        'creator_username': 'andrew',
+        'tag_name': '#315ne2ave-rent',
+        'title': 'Pay Rent for 315 ne 2nd ave',
+        'min_price': '1',
+        'tag_type': 'support',
+        'description_txt': 'Home renters at 315 ne 2nd ave, you can pay your monthly rent here.',
+        'video': '',
+        'image': '',
+        'rewards': '',
+    }
+    response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
+    assert response.ok
+    assert response.status_code == 201
+
+
 if __name__ == '__main__':
     connect_to_mongodb_if_not_connected()
     drop_dat_db()
@@ -154,4 +202,6 @@ if __name__ == '__main__':
     get_user_cashtags('neil', 1, 0, 0, 100)
     get_user_cashtags('cody', 0, 2, 1, 50)
     get_user_cashtags('dariel', 0, 1, 0, 0)
+
+    create_more_sample_cashtags()
 

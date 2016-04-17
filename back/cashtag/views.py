@@ -39,12 +39,18 @@ def cashtag_view(request):
 
 
 def cashtag_view_get(request):
-    pk = request.GET['pk']
-    try:
-        cashtag = CashTag.objects.get(pk=pk)
-        return JsonResponse(cashtag.to_api_json(), status=200)
-    except DoesNotExist:
-        return JsonResponse({'err': 'Not Foubnd'}, status=404)
+    pk = request.GET.get('pk')
+    if pk:
+        try:
+            cashtag = CashTag.objects.get(pk=pk)
+            return JsonResponse(cashtag.to_api_json(), status=200)
+        except DoesNotExist:
+            return JsonResponse({'err': 'Not Foubnd'}, status=404)
+
+    all_cashtags = CashTag.objects.all().limit(50)
+    return JsonResponse({
+        'cash_tags': [cashtag.to_api_json() for cashtag in all_cashtags]
+    })
 
 
 def cashtag_view_get_not_logged_in(request):
