@@ -10,7 +10,7 @@ __author__ = '2b||!2b'
 
 API_URL = 'http://45.55.34.6/api/'
 # API_URL = 'http://localhost:8000/api/'
-    
+
 
 def drop_dat_db():
     for cash_tag in CashTag.objects():
@@ -35,7 +35,7 @@ def post_cashtag():
         'rewards': '',
     }
 
-    response = requests.post(url='http://{}cashtag'.format(API_URL), json=data)
+    response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     print(response)
     assert response.ok
     assert response.status_code == 201
@@ -44,7 +44,7 @@ def post_cashtag():
 
 def get_posted_cashtag(pk):
     print('GETing {}'.format(pk))
-    response = requests.get(url='http://{}cashtag/.format(API_URL)?pk={}'.format(pk))
+    response = requests.get(url='{}cashtag/.format(API_URL)?pk={}'.format(pk))
     print(response)
     assert response.ok
     assert response.status_code == 200
@@ -155,7 +155,7 @@ def create_more_sample_cashtags():
         'image': 'img/miami_party.jpg',
         'rewards': '',
     }
-    response = requests.post(url='http://{}cashtag'.format(API_URL), json=data)
+    response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
     assert response.status_code == 201
 
@@ -170,7 +170,7 @@ def create_more_sample_cashtags():
         'image': 'img/garage-sale.jpg',
         'rewards': '',
     }
-    response = requests.post(url='http://{}cashtag'.format(API_URL), json=data)
+    response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
     assert response.status_code == 201
 
@@ -185,7 +185,7 @@ def create_more_sample_cashtags():
         'image': 'img/apartment-building.jpg',
         'rewards': '',
     }
-    response = requests.post(url='http://{}cashtag'.format(API_URL), json=data)
+    response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
     assert response.status_code == 201
 
@@ -200,7 +200,7 @@ def create_more_sample_cashtags():
         'image': 'img/wedding.jpg',
         'rewards': '',
     }
-    response = requests.post(url='http://{}cashtag'.format(API_URL), json=data)
+    response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
     assert response.status_code == 201
     print('created sample data')
