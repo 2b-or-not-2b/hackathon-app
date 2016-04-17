@@ -32,7 +32,10 @@ angular.module('starter.controllers', [])
 //-------------------------------------------------------------
 
 .controller('HashFeedCtrl', function($scope, HashFeeds,$timeout) {
-  $scope.hashfeeds = HashFeeds.all();
+  $scope.hashfeeds = [];
+  HashFeeds.all().then(function(data){
+    $scope.hashfeeds = data;
+  });
   $scope.doRefresh = function(){
     $timeout(function(){
       $scope.$broadcast('scroll.refreshComplete');
@@ -100,7 +103,10 @@ angular.module('starter.controllers', [])
     $scope.hash = HashFeeds.getBasic();
     $scope.hash = HashFeeds.getBasic();
     $scope.friends = Friends.all();
-    $scope.user = CurrentUser.get();
+    $scope.user = {};
+    CurrentUser.get().then(function(data){
+      $scope.user = data;
+    });
     $scope.ui = {
       showDetail: 0,
       showShare: 0
@@ -132,7 +138,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HashSearchCtrl', function($scope, HashFeeds,$timeout) {
-  $scope.hashfeeds = HashFeeds.all();
+  $scope.hashfeeds = [];
+  HashFeeds.all().then(function(data){
+    $scope.hashfeeds = data;
+  });
   $scope.query = {}
   $scope.queryBy = '$'
   $scope.doRefresh = function(){
@@ -147,7 +156,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MyHashsCtrl', function($scope, HashFeeds,$timeout) {
-  $scope.hashfeeds = HashFeeds.allMyHashs();
+  $scope.hashfeeds = [];
+  HashFeeds.allMyHashs().then(function(data){
+    $scope.hashfeeds = data;
+  });
   $scope.doRefresh = function(){
     $timeout(function(){
       $scope.$broadcast('scroll.refreshComplete');

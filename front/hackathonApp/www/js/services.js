@@ -172,11 +172,23 @@ angular.module('starter.services', [])
   ];
   return {
     all: function() {
-      return hashfeeds;
+      console.log('Receiving the hash here ;)');
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve(hashfeeds);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
     },
-
     allMyHashs: function(){
-      return myhashs;
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve(myhashs);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
     },
     remove: function(chat) {
       hashfeeds.splice(hashfeeds.indexOf(hashfeed), 1);
@@ -307,7 +319,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('CurrentUser', function() {
+.factory('CurrentUser', function($q) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -326,7 +338,13 @@ angular.module('starter.services', [])
     remove: function() {
     },
     get: function() {
-      return user;
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve(user);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
     },
     getBasic: function() {},
   };
