@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds,$timeout, $ionicHistory) {
+.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds,$timeout, $ionicHistory, $ionicLoading) {
   $scope.hash = HashFeeds.get($stateParams.hashfeedId);
   $scope.ui = {
     showPledgeOptions: 0,
@@ -92,6 +92,11 @@ angular.module('starter.controllers', [])
         console.log(data);
         if(data){
           $scope.ui.showThanks = 1;
+          $ionicLoading.show({
+             template: 'Loading...',
+             hideOnStateChange: true,
+             duration: 1500,
+          });
           $timeout(function(){
             $ionicHistory.goBack(-1);
           }, 1000);
