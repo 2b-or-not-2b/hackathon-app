@@ -28,6 +28,16 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+    $scope.changed = false;
+    $scope.FirstName = 'Example';
+    $scope.LastName = 'McPersonson';
+    $scope.CardNumber = '4111 1111 1111 1111';
+    $scope.ExpirationDate = '01/2019';
+
+    $scope.save = function() {
+      console.log('test');
+      $scope.changed = false;
+    }
 })
 
 //-------------------------------------------------------------

@@ -1,9 +1,32 @@
 <ion-view view-title="Account">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <div class="list list-inset">
+        First Name
+        <label class="item item-input">
+          <input ng-change="changed = true" type="text" placeholder="First Name" ng-model="FirstName">
+        </label>
+        Last Name
+        <label class="item item-input">
+          <input ng-change="changed = true" type="text" placeholder="Last Name" ng-model="LastName">
+        </label>
+      </div>
+
+      <div class="list list-inset">
+        Card Number
+        <label class="item item-input">
+          <input ng-change="changed = true" type="password" placeholder="Card Number" ng-model="CardNumber">
+        </label>
+        Expiration
+        <label class="item item-input">
+          <input ng-change="changed = true" type='text' placeholder="Expiration Date" ng-model="ExpirationDate">
+        </label>
+      </div>
+
+      <button class="button button-positive button-block disabled" disabled
+        ng-if="!changed">
+        Save</button>
+      <button class="button button-positive button-block" ng-if="changed" ng-click="save()">Save</button>
     </ion-list>
   </ion-content>
 </ion-view>
