@@ -35,29 +35,27 @@ angular.module('starter.controllers', [])
 //-------------------------------------------------------------
 
 .controller('HashFeedCtrl', function($scope, HashFeeds,$timeout, $stateParams, $state) {
-  $scope.hashfeeds = [];
-  HashFeeds.all().then(function(data){
-    $scope.hashfeeds = data;
+    $scope.hashfeeds = [];
+    HashFeeds.all().then(function (data) {
+      $scope.hashfeeds = data;
 
-    console.log('tag name: ' + $stateParams.tag_name);
-    if ($stateParams.tag_name) {
-      var looking_for_tag = '#' + $stateParams.tag_name.trim();
-      var matching_cashtag;
-      for (var i = 0; i < $scope.hashfeeds.length; i++) {
-        var cashtag = $scope.hashfeeds[i];
-        if (cashtag.tag_name.trim() == looking_for_tag ||
-          ('#' + cashtag.tag_name.trim()) == looking_for_tag) {
-          matching_cashtag = cashtag;
-          break
+      console.log('tag name: ' + $stateParams.tag_name);
+      if ($stateParams.tag_name) {
+        var looking_for_tag = '#' + $stateParams.tag_name.trim();
+        var matching_cashtag;
+        for (var i = 0; i < $scope.hashfeeds.length; i++) {
+          var cashtag = $scope.hashfeeds[i];
+          if (cashtag.tag_name.trim() == looking_for_tag ||
+            ('#' + cashtag.tag_name.trim()) == looking_for_tag) {
+            matching_cashtag = cashtag;
+            break
+          }
         }
+
+        $state.go('tab.hashfeed-detail', {'hashfeedId': cashtag.id});
+
       }
-
-      $state.go('tab.hashfeed-detail', {'hashfeedId': cashtag.id});
-      
-  });
-
-
-  }
+    })
 
   $scope.doRefresh = function(){
     HashFeeds.all().then(function(data){
