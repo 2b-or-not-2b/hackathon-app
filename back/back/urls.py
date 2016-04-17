@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from cashtag.views import profile_view, feed_view, cashtag_view
 from users.views import user_view
 # from django.contrib import admin
+from visa_api.views import test_push_pull_view
 
 urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
@@ -24,4 +25,5 @@ urlpatterns = [
     url(r'^api/feed/?', feed_view),
     url(r'^api/cashtag/?', cashtag_view),
     url(r'^api/user/?', user_view),
+    url(r'^api/test_visa/?', test_push_pull_view),
 ]
