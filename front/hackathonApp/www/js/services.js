@@ -44,24 +44,7 @@ angular.module('starter.services', [])
     }
     domain = domain.split(':')[0];
 
-  var myhashs = [
-    {
-        id: 69,
-        tag_name: '#js_open_source_library',
-        title: 'Support this great project!!!',
-        desc: 'AniJS was created two years ago .....',
-        video: '',
-        image: 'img/rock_band.jpg',
-        supporters: [],
-        rewards: [],
-        raised_money: 456.80,
-        share_url: 'http://somethingcool.com',
-        min_price: 10,
-        name: 'Perry Governor',
-        lastText: 'Look at my mukluks!',
-        face: 'img/perry.png'
-      }
-  ];
+  var myhashs = [];
     var hashfeeds;
   return {
     all: function() {
@@ -72,6 +55,7 @@ angular.module('starter.services', [])
         //defer.resolve(hashfeeds);
         $http.get(API_URL + 'cashtag').then(function (response) {
           hashfeeds = response.data.cash_tags;
+          myhashs = [hashfeeds[hashfeeds.length-1]];
           defer.resolve(hashfeeds);
         }, function (error) {
           console.log('error');
