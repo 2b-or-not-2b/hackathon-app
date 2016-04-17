@@ -23,7 +23,8 @@
             {{hash.raised_money}}
           </span>
           <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
-          <a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ hash.share_url }}"> <button class="button icon-left ion-android-happy button-positive share-button"></button></a>
+          <button ng-click="pledgeAction()" class="button icon-left ion-social-usd button-energized share-button" style="margin-left: 10px; padding: 0 26px;"></button>
+          <a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ hash.share_url }}"> <button class="button icon-left ion-android-share-alt button-positive share-button"></button></a>
           <!--<button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>-->
         </p>
       </div>
@@ -36,7 +37,7 @@
       </div>
       <div class="item item-body">
         <h2 ng-show="ui.showThanks">Thanks ;)</h2>
-        <button ng-show="!ui.showThanks" class="button button-stable price-selection" ng-repeat="pledgeOption in ui.pledgeOptions" ng-class="{'button-energized': pledgeOption.selected}" ng-click="pledgeOptionAction(pledgeOption)">
+        <button ng-show="!ui.showThanks" class="button button-stable price-selection" ng-repeat="pledgeOption in ui.pledgeOptions" ng-class="{'button-positive': pledgeOption.selected}" ng-click="pledgeOptionAction(pledgeOption)">
           ${{pledgeOption.price}}
         </button>
         <div ng-show="!ui.showThanks" class="list list-inset">
@@ -44,7 +45,7 @@
             <input type="text" placeholder="custom $$$">
           </label>
         </div>
-            <button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>
+            <button ng-click="pledgeAction()" class="button icon-left ion-social-usd button-energized share-button" style="padding: 0 26px;"></button>
       </div>
     </div>
   </ion-content>
