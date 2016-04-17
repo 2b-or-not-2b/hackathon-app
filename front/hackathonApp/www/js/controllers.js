@@ -1,5 +1,5 @@
-//var API_URL = 'http://45.55.34.6/api/';
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = 'http://45.55.34.6/api/';
+//var API_URL = 'http://localhost:8000/api/';
 
 angular.module('starter.controllers', [])
 
