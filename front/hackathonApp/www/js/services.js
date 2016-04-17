@@ -1,4 +1,4 @@
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = 'http://45.55.34.6/api/';
 
 angular.module('starter.services', [])
 
@@ -158,7 +158,7 @@ angular.module('starter.services', [])
 })
 
 .factory('Friends', function() {
-  // NOT USING BUT TOO LAZY TO ERASE
+// NOT USING BUT TOO LAZY TO ERASE
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
