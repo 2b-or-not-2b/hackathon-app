@@ -23,7 +23,8 @@
             {{hash.raised_money}}
           </span>
           <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
-          <button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>
+          <a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ hash.share_url }}"> <button class="button icon-left ion-android-happy button-positive share-button"></button></a>
+          <!--<button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>-->
         </p>
       </div>
     </div>

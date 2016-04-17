@@ -56,6 +56,16 @@ angular.module('starter.services', [])
 .factory('HashFeeds', function($q) {
   // Might use a resource here that returns a JSON array
 
+    var domain;
+    var url = window.location.href;
+    if (url.indexOf("://") > -1) {
+      domain = url.split('/')[2];
+    }
+    else {
+      domain = url.split('/')[0];
+    }
+    domain = domain.split(':')[0];
+
   // Some fake testing data
   var friends = [{
     id: 0,
@@ -67,7 +77,7 @@ angular.module('starter.services', [])
     supporters: [1, 3],
     rewards: [],
     raised_money: 456.80,
-    share_url: 'http://somethingcool.com',
+    share_url: 'http://' + domain + '/share/mywedding',
     min_price: 0,
     name: 'Max Lynx',
     lastText: 'Hey, it\'s me',
@@ -82,9 +92,8 @@ angular.module('starter.services', [])
     supporters: [],
     rewards: [],
     raised_money: 456.80,
-    share_url: 'http://somethingcool.com',
+    share_url: 'http://' + domain + '/share/buildNe2S_april_rent',
     min_price: 0,
-    share_url: '',
     username: 'ben',
     name: 'Ben Sparrow',
     face: 'img/ben.png'
@@ -98,7 +107,7 @@ angular.module('starter.services', [])
     supporters: [],
     rewards: [],
     raised_money: 456.80,
-    share_url: 'http://somethingcool.com',
+    share_url: 'http://' + domain + '/share/garage_sale_brickell',
     min_price: 0,
     name: 'Adam Bradleyson',
     lastText: 'I should buy a boat',
@@ -113,7 +122,7 @@ angular.module('starter.services', [])
     supporters: [],
     rewards: [],
     raised_money: 456.80,
-    share_url: 'http://somethingcool.com',
+    share_url: 'http://' + domain + '/share/big_party_miami2016',
     min_price: 10,
     name: 'Perry Governor',
     lastText: 'Look at my mukluks!',
@@ -128,7 +137,7 @@ angular.module('starter.services', [])
     supporters: [],
     rewards: [],
     raised_money: 456.80,
-    share_url: 'http://somethingcool.com',
+    share_url: 'http://' + domain + '/share/help_emily_baby',
     min_price: 0,
     name: 'Mike Harrington',
     lastText: 'This is wicked good ice cream.',
@@ -153,9 +162,20 @@ angular.module('starter.services', [])
     create: function(hash){
       console.log('Receiving the hash here ;)');
       var defer = $q.defer();
+      var share_url = undefined;
+      var domain;
+      if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+      }
+      else {
+        domain = url.split('/')[0];
+      }
+      domain = domain.split(':')[0];
+
       if (1) {
         hash.image = 'img/rock_band.jpg';
         hash.tag_name = '#support_my_band';
+        hash.share_url = 'http://' + domain + '/' + hash.tag_name;
         hash.desc = 'Guys, if you like this music, support us';
         hash.share_url= 'http://something.funny.com';
         hash.raised_money = 0;

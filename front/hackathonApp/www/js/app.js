@@ -111,7 +111,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'HashCreateCtrl'
       }
     }
-  });
+  })
+
+    .state('tab.share', {
+      url: '/share/:tag_name',
+      views: {
+        'tab-hashfeed': {
+          templateUrl: 'templates/tab-hashfeed.html',
+          controller: 'HashFeedCtrl'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
