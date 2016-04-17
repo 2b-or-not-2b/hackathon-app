@@ -53,3 +53,15 @@
 .button.icon-right.share-button:before {
     line-height: 33px;
 }
+
+.button.price-selection{
+  margin-right: 6px;
+}
+
+.l-card-share-url{
+  margin-top: 34px;
+}
+
+.card-embbebed-code textarea{
+  width: 100%;
+}

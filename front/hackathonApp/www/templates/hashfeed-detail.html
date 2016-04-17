@@ -6,7 +6,7 @@
 -->
 <ion-view view-title="{{hash.title}}">
   <ion-content class="padding">
-    <div class="list card">
+    <div class="list card" ng-show="!ui.showPledgeOptions">
       <div class="item item-avatar">
         <img src="{{hash.face}}">
         <h2>{{hash.tag_name}}</h2>
@@ -27,19 +27,23 @@
         </p>
       </div>
     </div>
-    <div class="list card">
+    <div class="list card" ng-show="ui.showPledgeOptions">
       <div class="item item-avatar">
         <img src="{{hash.face}}">
         <h2>{{hash.tag_name}}</h2>
         <p>{{hash.title}}</p>
       </div>
       <div class="item item-body">
-        <button class="button">
-          10
+        <h2 ng-show="ui.showThanks">Thanks ;)</h2>
+        <button ng-show="!ui.showThanks" class="button button-stable price-selection" ng-repeat="pledgeOption in ui.pledgeOptions" ng-class="{'button-energized': pledgeOption.selected}" ng-click="pledgeOptionAction(pledgeOption)">
+          ${{pledgeOption.price}}
         </button>
-        <p>
-          <button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>
-        </p>
+        <div ng-show="!ui.showThanks" class="list list-inset">
+          <label class="item item-input">
+            <input type="text" placeholder="custom $$$">
+          </label>
+        </div>
+            <button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>
       </div>
     </div>
   </ion-content>

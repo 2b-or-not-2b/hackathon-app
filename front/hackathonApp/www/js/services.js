@@ -160,6 +160,7 @@ angular.module('starter.services', [])
         hash.share_url= 'http://something.funny.com';
         hash.raised_money = 0;
         hash.supporters = [1];
+        hash.emmbeded_code = '<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>';
 
         defer.resolve(hash);
       } else {

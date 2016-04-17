@@ -44,20 +44,45 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds) {
+.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds,$timeout, $ionicHistory) {
   $scope.hash = HashFeeds.get($stateParams.hashfeedId);
   $scope.ui = {
-    showPledgeOptions: 0
+    showPledgeOptions: 0,
+    showThanks: 0,
+    pledgeAmount: 0,
+    pledgeOptions: [
+      {price: 10, selected: 0},
+      {price: 25, selected: 1},
+      {price: 50, selected: 0},
+      {price: 100, selected: 0},
+    ]
   };
-  $scope.pledgeAction = function(){
-    // HashFeeds.pledge(hash).then(function(data){
-    //   console.log(data);
-    //   if(data){
 
-    //   }
-    //   // $scope.hash = data;
-    //   // $scope.ui.showDetail = 1;
-    // });
+  $scope.pledgeOptionAction = function(pledgeOption){
+    for (var i = 0; i < $scope.ui.pledgeOptions.length; i++) {
+      $scope.ui.pledgeOptions[i].selected = 0;
+    };
+    pledgeOption.selected = 1;
+  };
+
+  $scope.pledgeAction = function(){
+    var hash = $scope.ui.hash;
+    if($scope.ui.showPledgeOptions){
+      //TODO: sent info to the servers
+      HashFeeds.pledge(hash).then(function(data){
+        console.log(data);
+        if(data){
+          $scope.ui.showThanks = 1;
+          $timeout(function(){
+            $ionicHistory.goBack(-1);
+          }, 1000);
+        }
+        // $scope.hash = data;
+        // $scope.ui.showDetail = 1;
+      });
+    } else {
+      $scope.ui.showPledgeOptions = 1;
+    }
     $scope.ui.showPledgeOptions = 1;
   }
 })
@@ -77,7 +102,8 @@ angular.module('starter.controllers', [])
     $scope.friends = Friends.all();
     $scope.user = CurrentUser.get();
     $scope.ui = {
-      showDetail: 0
+      showDetail: 0,
+      showShare: 0
     };
   }
 
@@ -93,5 +119,14 @@ angular.module('starter.controllers', [])
     });
     // Call the service create the card and then going
     // to the new url
+    // Changin
+  }
+
+  $scope.showShareAction = function(){
+    if($scope.ui.showShare){
+      $scope.ui.showShare = 0;
+    } else{
+      $scope.ui.showShare = 1;
+    }
   }
 });
