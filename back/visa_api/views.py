@@ -21,6 +21,7 @@ def test_push_pull_view(request):
     # user = CashTagUser.objects.get(username=from_username)
     cash_tag = CashTag.objects.get(int_id=cashtag_id)
     cash_tag.money_collected += amount
+    cash_tag.supports.append('neil')  # laziness, whatever
     cash_tag.save()
 
     return JsonResponse({
