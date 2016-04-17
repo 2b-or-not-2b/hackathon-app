@@ -83,7 +83,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-
   .state('tab.hashsearch', {
     url: '/hashsearch',
     views: {
@@ -102,6 +101,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'MyHashsCtrl'
       }
     }
+  })
+  .state('tab.share', {
+      url: '/share/:tag_name',
+      views: {
+        'tab-hashfeed': {
+          templateUrl: 'templates/tab-hashfeed.html',
+          controller: 'HashFeedCtrl'
+        }
+      }
   });
 
   // if none of the above states are matched, use this as the fallback
