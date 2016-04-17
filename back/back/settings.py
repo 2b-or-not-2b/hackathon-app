@@ -60,7 +60,9 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     'localhost/',
     '0.0.0.0',
+    '*',
 )
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'back.urls'
 

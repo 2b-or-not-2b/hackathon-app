@@ -28,7 +28,7 @@ def post_cashtag():
         'tag_type': 'support',
         'description_txt': 'Help fund our app!\nTurn our hackathon entry into something bigger!!',
         'video': '',
-        'image': '',
+        'image': 'img/open_source_library.png',
         'rewards': '',
     }
 
@@ -65,7 +65,7 @@ def create_test_users():
         )
         test_user.save()
 
-    user_info = ['neil', 'cody', 'dariel']
+    user_info = ['neil', 'cody', 'dariel', 'ben', 'mike']
     users_created = []
     users_were_created_this_test = False
     for username in user_info:
@@ -76,7 +76,8 @@ def create_test_users():
             user = CashTagUser(
                 username=username,
                 password='password',
-                money_able_to_send=100
+                money_able_to_send=100,
+                avatar_img_url='img/{}.jpg'.format(username)
             )
             user.save()
         users_created.append(user)
@@ -103,13 +104,11 @@ def verify_test_users():
         except AssertionError:
             print('len(user.friends) ==')
             print(len(user.friends))
-            exit()
         try:
             assert len(user.contacts) == 3
         except AssertionError:
             print('len(user.contacts) ==')
             print(len(user.contacts))
-            exit()
     print('User creatiom verified')
 
 
@@ -144,13 +143,13 @@ def get_user_cashtags(username, num_active, num_contrib, num_watching, money_lef
 def create_more_sample_cashtags():
     data = {
         'creator_username': 'cody',
-        'tag_name': '#newlaptop',
-        'title': 'Cody Needs a new Laptop',
+        'tag_name': '#big_party_miami2016',
+        'title': 'Turn Down For What?!?!',
         'min_price': '1',
         'tag_type': 'support',
-        'description_txt': 'Apparently coding in the bathtub is a bad idea :(\nAny donations will help me get a new laptop to replace my fried one.',
+        'description_txt': 'Hi guys, we are hosting a big party. Beers included, the minimum support is just 10 bucks.',
         'video': '',
-        'image': '',
+        'image': 'img/miami_party.jpg',
         'rewards': '',
     }
     response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
@@ -165,7 +164,7 @@ def create_more_sample_cashtags():
         'tag_type': 'support',
         'description_txt': "Looking to sell old goods I don't need anymore",
         'video': '',
-        'image': '',
+        'image': 'img/garage-sale.jpg',
         'rewards': '',
     }
     response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
@@ -173,19 +172,35 @@ def create_more_sample_cashtags():
     assert response.status_code == 201
 
     data = {
-        'creator_username': 'andrew',
+        'creator_username': 'ben',
         'tag_name': '#315ne2ave-rent',
         'title': 'Pay Rent for 315 ne 2nd ave',
         'min_price': '1',
         'tag_type': 'support',
         'description_txt': 'Home renters at 315 ne 2nd ave, you can pay your monthly rent here.',
         'video': '',
-        'image': '',
+        'image': 'img/apartment-building.jpg',
         'rewards': '',
     }
     response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
     assert response.ok
     assert response.status_code == 201
+
+    data = {
+        'creator_username': 'mike',
+        'tag_name': '#mywedding',
+        'title': 'Happy Forever',
+        'min_price': '10',
+        'tag_type': 'support',
+        'description_txt': "Hi friends, we're here to announce our wedding.\nPlease help us in funding this event. We hope to make this day special not just for us, but for you too.",
+        'video': '',
+        'image': 'img/wedding.jpg',
+        'rewards': '',
+    }
+    response = requests.post(url='http://localhost:8000/api/cashtag', json=data)
+    assert response.ok
+    assert response.status_code == 201
+    print('created sample data')
 
 
 if __name__ == '__main__':

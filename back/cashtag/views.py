@@ -79,6 +79,16 @@ def cashtag_create(request):
     image = post_data.get('image')
     rewards = post_data.get('rewards')
     days_to_live = post_data.get('days_to_live') or 30
+    tag_name = post_data.get('tag_name')
+
+    try:
+        int_id = CashTag.objects().order_by('int_id').limit(1)[0].int_id + 1
+    except (DoesNotExist, IndexError) as e:
+        int_id = 0
+    except Exception as e:
+        print(type(e))
+        print(e)
+        raise
 
     video = video or None
     image = image or None
@@ -86,6 +96,8 @@ def cashtag_create(request):
     print('finished fetching data from POST')
 
     cashtag = CashTag(
+        int_id=int_id,
+        tag_name=tag_name,
         creator_username=creator_username,
         title=title,
         min_price=min_price,

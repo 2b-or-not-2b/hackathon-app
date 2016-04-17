@@ -1,36 +1,13 @@
+var API_URL = 'http://localhost:8000/api/';
+
 angular.module('starter.services', [])
 
 .factory('Chats', function($q) {
+  // NOT USING BUT TOO LAZY TO ERASE
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
+  var chats = [];
   return {
     all: function() {
       return chats;
@@ -53,7 +30,7 @@ angular.module('starter.services', [])
 // Our stuff
 //-------------------------------------------------------------
 
-.factory('HashFeeds', function($q) {
+.factory('HashFeeds', function($q, $http) {
   // Might use a resource here that returns a JSON array
 
     var domain;
@@ -65,101 +42,6 @@ angular.module('starter.services', [])
       domain = url.split('/')[0];
     }
     domain = domain.split(':')[0];
-
-  // Some fake testing data
-  var hashfeeds = [{
-    id: 0,
-    tag_name: '#mywedding',
-    title: 'Happy forever!!!',
-    desc: 'Hi friends, we are happy to announce our wedding...',
-    video: '',
-    image: 'img/wedding.jpg',
-    supporters: [1, 3],
-    rewards: [],
-    raised_money: 456.80,
-    share_url: 'http://' + domain + '/share/mywedding',
-    min_price: 0,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 1,
-    tag_name: '#buildNe2S_april_rent',
-    title: 'Monthly Rent Ready',
-    desc: 'Dear home renters, you can pay your monthly...',
-    video: '',
-    image: 'img/apartment-building.jpg',
-    supporters: [],
-    rewards: [],
-    raised_money: 456.80,
-    share_url: 'http://' + domain + '/share/buildNe2S_april_rent',
-    min_price: 0,
-    username: 'ben',
-    name: 'Ben Sparrow',
-    face: 'img/ben.png'
-  }, {
-    id: 2,
-    tag_name: '#garage_sale_brickell',
-    title: 'Brickell garage sale',
-    desc: 'Use this hash if you want to purchase something here...',
-    video: '',
-    image: 'img/garage-sale.jpg',
-    supporters: [],
-    rewards: [],
-    raised_money: 456.80,
-    share_url: 'http://' + domain + '/share/garage_sale_brickell',
-    min_price: 0,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    tag_name: '#big_party_miami2016',
-    title: 'Just be fun with us :) ;)',
-    desc: 'Hi guys, we are hosting a big stuff here, Free beers included, the minimal support is just 10 box.',
-    video: '',
-    image: 'img/miami_party.jpg',
-    supporters: [],
-    rewards: [],
-    raised_money: 456.80,
-    share_url: 'http://' + domain + '/share/big_party_miami2016',
-    min_price: 10,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    tag_name: '#help_emily_baby',
-    title: 'Help us please?',
-    desc: 'Our cute Emily is so sick, and unfurtunately, we cannot afford the payments',
-    video: '',
-    image: 'img/baby_girl.jpg',
-    supporters: [],
-    rewards: [],
-    raised_money: 456.80,
-    share_url: 'http://' + domain + '/share/help_emily_baby',
-    min_price: 0,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  },
-    {
-      id: 69,
-      tag_name: '#js_open_source_library',
-      title: 'Support this great project!!!',
-      desc: 'AniJS was created two years ago .....',
-      video: '',
-      image: 'img/open_source_library.png',
-      supporters: [],
-      rewards: [],
-      raised_money: 456.80,
-      share_url: 'http://somethingcool.com',
-      min_price: 10,
-      name: 'Perry Governor',
-      lastText: 'Look at my mukluks!',
-      face: 'img/perry.png'
-      }
-    ];
 
   var myhashs = [
     {
@@ -184,7 +66,14 @@ angular.module('starter.services', [])
       console.log('Receiving the hash here ;)');
       var defer = $q.defer();
       if (1) {
-        defer.resolve(hashfeeds);
+        //defer.resolve(hashfeeds);
+        $http.get(API_URL + 'cashtag').then(function (response) {
+          var hashfeeds_response = response.data.cash_tags;
+          defer.resolve(hashfeeds_response);
+        }, function (error) {
+          console.log('error');
+        })
+
       } else {
         defer.reject();
       }
@@ -269,40 +158,11 @@ angular.module('starter.services', [])
 })
 
 .factory('Friends', function() {
+  // NOT USING BUT TOO LAZY TO ERASE
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [{
-    id: 0,
-    username: 'max',
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 1,
-    username: 'ben',
-    name: 'Ben Sparrow',
-    lastText: 'Hey, it\'s me',
-    face: 'img/ben.png'
-  }, {
-    id: 2,
-    username: 'adam',
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    username: 'perry',
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    username: 'mike',
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+  var friends = [];
 
   return {
     all: function() {
