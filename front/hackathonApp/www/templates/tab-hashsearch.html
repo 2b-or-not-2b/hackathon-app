@@ -1,11 +1,17 @@
-<ion-view view-title="Hash Feed">
+<ion-view view-title="Search">
   <ion-content>
     <ion-refresher
        pulling-text="Pull to refresh..."
        on-refresh="doRefresh()">
      </ion-refresher>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search"  ng-change="searchAction()" ng-model="query[queryBy]">
+      </label>
+    </div>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="hashfeed in hashfeeds" type="item-text-wrap" href="#/tab/hashfeed/{{hashfeed.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="hashfeed in hashfeeds | filter:query" type="item-text-wrap" href="#/tab/hashfeed/{{hashfeed.id}}">
         <img ng-src="{{hashfeed.face}}">
         <h2>{{hashfeed.tag_name}}</h2>
         <p>{{hashfeed.title}}</p>

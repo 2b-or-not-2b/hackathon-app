@@ -67,13 +67,13 @@ angular.module('starter.services', [])
     domain = domain.split(':')[0];
 
   // Some fake testing data
-  var friends = [{
+  var hashfeeds = [{
     id: 0,
     tag_name: '#mywedding',
     title: 'Happy forever!!!',
     desc: 'Hi friends, we are happy to announce our wedding...',
     video: '',
-    image: 'img/rock_band.jpg',
+    image: 'img/wedding.jpg',
     supporters: [1, 3],
     rewards: [],
     raised_money: 456.80,
@@ -88,7 +88,7 @@ angular.module('starter.services', [])
     title: 'Monthly Rent Ready',
     desc: 'Dear home renters, you can pay your monthly...',
     video: '',
-    image: 'img/rock_band.jpg',
+    image: 'img/apartment-building.jpg',
     supporters: [],
     rewards: [],
     raised_money: 456.80,
@@ -103,7 +103,7 @@ angular.module('starter.services', [])
     title: 'Brickell garage sale',
     desc: 'Use this hash if you want to purchase something here...',
     video: '',
-    image: 'img/rock_band.jpg',
+    image: 'img/garage-sale.jpg',
     supporters: [],
     rewards: [],
     raised_money: 456.80,
@@ -118,7 +118,7 @@ angular.module('starter.services', [])
     title: 'Just be fun with us :) ;)',
     desc: 'Hi guys, we are hosting a big stuff here, Free beers included, the minimal support is just 10 box.',
     video: '',
-    image: 'img/rock_band.jpg',
+    image: 'img/miami_party.jpg',
     supporters: [],
     rewards: [],
     raised_money: 456.80,
@@ -133,7 +133,7 @@ angular.module('starter.services', [])
     title: 'Help us please?',
     desc: 'Our cute Emily is so sick, and unfurtunately, we cannot afford the payments',
     video: '',
-    image: 'img/rock_band.jpg',
+    image: 'img/baby_girl.jpg',
     supporters: [],
     rewards: [],
     raised_money: 456.80,
@@ -142,19 +142,70 @@ angular.module('starter.services', [])
     name: 'Mike Harrington',
     lastText: 'This is wicked good ice cream.',
     face: 'img/mike.png'
-  }];
+  },
+    {
+      id: 69,
+      tag_name: '#js_open_source_library',
+      title: 'Support this great project!!!',
+      desc: 'AniJS was created two years ago .....',
+      video: '',
+      image: 'img/open_source_library.png',
+      supporters: [],
+      rewards: [],
+      raised_money: 456.80,
+      share_url: 'http://somethingcool.com',
+      min_price: 10,
+      name: 'Perry Governor',
+      lastText: 'Look at my mukluks!',
+      face: 'img/perry.png'
+      }
+    ];
 
+  var myhashs = [
+    {
+        id: 69,
+        tag_name: '#js_open_source_library',
+        title: 'Support this great project!!!',
+        desc: 'AniJS was created two years ago .....',
+        video: '',
+        image: 'img/rock_band.jpg',
+        supporters: [],
+        rewards: [],
+        raised_money: 456.80,
+        share_url: 'http://somethingcool.com',
+        min_price: 10,
+        name: 'Perry Governor',
+        lastText: 'Look at my mukluks!',
+        face: 'img/perry.png'
+      }
+  ];
   return {
     all: function() {
-      return friends;
+      console.log('Receiving the hash here ;)');
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve(hashfeeds);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
+    },
+    allMyHashs: function(){
+      var defer = $q.defer();
+      if (1) {
+        defer.resolve(myhashs);
+      } else {
+        defer.reject();
+      }
+      return defer.promise;
     },
     remove: function(chat) {
-      friends.splice(friends.indexOf(hashfeed), 1);
+      hashfeeds.splice(hashfeeds.indexOf(hashfeed), 1);
     },
     get: function(chatId) {
-      for (var i = 0; i < friends.length; i++) {
-        if (friends[i].id === parseInt(chatId)) {
-          return friends[i];
+      for (var i = 0; i < hashfeeds.length; i++) {
+        if (hashfeeds[i].id === parseInt(chatId)) {
+          return hashfeeds[i];
         }
       }
       return null;
@@ -288,7 +339,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('CurrentUser', function() {
+.factory('CurrentUser', function($q) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -307,26 +358,14 @@ angular.module('starter.services', [])
     remove: function() {
     },
     get: function() {
-      return user;
-    },
-    getBasic: function() {},
-  };
-})
-
-//TODO: We are not using it
-.factory('ShareHash', function($q) {
-  return {
-    share: function(hash) {
       var defer = $q.defer();
       if (1) {
-        hash.share_url = 'http://aquinama.com';
-        defer.resolve(hash);
+        defer.resolve(user);
       } else {
         defer.reject();
       }
       return defer.promise;
     },
+    getBasic: function() {},
   };
-})
-
-;
+});

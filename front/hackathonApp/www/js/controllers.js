@@ -32,8 +32,10 @@ angular.module('starter.controllers', [])
 //-------------------------------------------------------------
 
 .controller('HashFeedCtrl', function($scope, HashFeeds,$timeout, $stateParams, $state) {
-  $scope.hashfeeds = HashFeeds.all();
-    console.log('loading hashfeedctrl');
+  $scope.hashfeeds = [];
+  HashFeeds.all().then(function(data){
+    $scope.hashfeeds = data;
+  });
 
     console.log('tag name: ' + $stateParams.tag_name);
     if ($stateParams.tag_name) {
@@ -117,7 +119,10 @@ angular.module('starter.controllers', [])
     $scope.hash = HashFeeds.getBasic();
     $scope.hash = HashFeeds.getBasic();
     $scope.friends = Friends.all();
-    $scope.user = CurrentUser.get();
+    $scope.user = {};
+    CurrentUser.get().then(function(data){
+      $scope.user = data;
+    });
     $scope.ui = {
       showDetail: 0,
       showShare: 0
@@ -146,4 +151,42 @@ angular.module('starter.controllers', [])
       $scope.ui.showShare = 1;
     }
   }
-});
+})
+
+.controller('HashSearchCtrl', function($scope, HashFeeds,$timeout) {
+  $scope.hashfeeds = [];
+  HashFeeds.all().then(function(data){
+    $scope.hashfeeds = data;
+  });
+  $scope.query = {}
+  $scope.queryBy = '$'
+  $scope.doRefresh = function(){
+    $timeout(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 2000);
+    return;
+  };
+  $scope.remove = function(hashfeed) {
+    HashFeeds.remove(hashfeed);
+  };
+})
+
+.controller('MyHashsCtrl', function($scope, HashFeeds,$timeout) {
+  $scope.hashfeeds = [];
+  HashFeeds.allMyHashs().then(function(data){
+    $scope.hashfeeds = data;
+  });
+  $scope.doRefresh = function(){
+    $timeout(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 2000);
+    return;
+  };
+  $scope.remove = function(hashfeed) {
+    HashFeeds.remove(hashfeed);
+  };
+})
+
+
+
+;
