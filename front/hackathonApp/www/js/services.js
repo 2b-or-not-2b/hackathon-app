@@ -1,4 +1,5 @@
-var API_URL = 'http://45.55.34.6/api/';
+//var API_URL = 'http://45.55.34.6/api/';
+var API_URL = 'http://localhost:8000/api/';
 
 angular.module('starter.services', [])
 
@@ -61,15 +62,17 @@ angular.module('starter.services', [])
         face: 'img/perry.png'
       }
   ];
+    var hashfeeds;
   return {
     all: function() {
+
       console.log('Receiving the hash here ;)');
       var defer = $q.defer();
       if (1) {
         //defer.resolve(hashfeeds);
         $http.get(API_URL + 'cashtag').then(function (response) {
-          var hashfeeds_response = response.data.cash_tags;
-          defer.resolve(hashfeeds_response);
+          hashfeeds = response.data.cash_tags;
+          defer.resolve(hashfeeds);
         }, function (error) {
           console.log('error');
         })
@@ -162,7 +165,37 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [];
+    var friends = [{
+      id: 0,
+      username: 'max',
+      name: 'Max Lynx',
+      lastText: 'Hey, it\'s me',
+      face: 'img/max.png'
+    }, {
+      id: 1,
+      username: 'cody',
+      name: 'Cody Greene',
+      lastText: 'Hey, it\'s me',
+      face: 'img/cody.jpg'
+    }, {
+      id: 2,
+      username: 'dariel',
+      name: 'Dariel Noel',
+      lastText: 'I should buy a boat',
+      face: 'img/dariel.jpg'
+    }, {
+      id: 3,
+      username: 'perry',
+      name: 'Perry Governor',
+      lastText: 'Look at my mukluks!',
+      face: 'img/perry.png'
+    }, {
+      id: 4,
+      username: 'mike',
+      name: 'Mike Harrington',
+      lastText: 'This is wicked good ice cream.',
+      face: 'img/mike.png'
+    }];
 
   return {
     all: function() {

@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^api/cashtag/?', cashtag_view),
     url(r'^api/user/?', user_view),
     url(r'^api/test_visa/?', test_push_pull_view),
+    url(r'^api/pay/?', test_push_pull_view),
 ]

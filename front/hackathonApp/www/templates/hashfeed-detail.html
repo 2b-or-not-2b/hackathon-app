@@ -18,11 +18,13 @@
           {{hash.desc}}
         </p>
         <p>
-          <span>
+          <span ng-if="hash.tag_type != 'private'">
             <i class="ion-social-usd"></i>
             {{hash.raised_money}}
+
+            <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
           </span>
-          <a href="#" class="subdued supporters" ng-show="hash.supporters.length > 0"> <i class="ion-person"></i> {{hash.supporters.length}}</a>
+
           <button ng-click="pledgeAction()" class="button icon-left ion-social-usd button-energized share-button" style="margin-left: 10px; padding: 0 26px;"></button>
           <a target="_blank" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ hash.share_url }}"> <button class="button icon-left ion-android-share-alt button-positive share-button"></button></a>
           <!--<button ng-click="pledgeAction()" class="button icon-left ion-android-happy button-positive share-button"></button>-->
@@ -42,7 +44,7 @@
         </button>
         <div ng-show="!ui.showThanks" class="list list-inset">
           <label class="item item-input">
-            <input type="text" placeholder="custom $$$">
+            <input type="text" placeholder="custom $$$" ng-model="ui.pledgeCustomPriceAmount" ng-change="pledgeCustomPrice()">
           </label>
         </div>
             <button ng-click="pledgeAction()" class="button icon-left ion-social-usd button-energized share-button" style="padding: 0 26px;"></button>

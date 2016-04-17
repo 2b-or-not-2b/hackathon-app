@@ -68,7 +68,7 @@
     <div class="list list-inset">
       <div class="item item-avatar item-button-right" ng-repeat="friend in friends">
           <img src="{{friend.face}}">
-          <h2>Venkman</h2>
+          <h2>{{ friend.username }}</h2>
          <label class="checkbox">
                 <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked">
              </label>

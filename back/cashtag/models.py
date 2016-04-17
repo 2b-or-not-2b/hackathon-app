@@ -78,7 +78,7 @@ class CashTag(mongoengine.Document):
                 'raised_money': self.money_collected,
                 'tag_name': self.tag_name,
                 'title': self.title,
-                'min_price': self.min_price,
+                'price': self.min_price,
                 'tag_type': self.tag_type,
                 'desc': self.description_txt,
                 'description_html': self.description_html,

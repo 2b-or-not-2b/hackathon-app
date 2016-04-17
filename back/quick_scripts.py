@@ -8,8 +8,8 @@ from util.mongo_utils import connect_to_mongodb_if_not_connected
 
 __author__ = '2b||!2b'
 
-API_URL = 'http://45.55.34.6/api/'
-# API_URL = 'http://localhost:8000/api/'
+# API_URL = 'http://45.55.34.6/api/'
+API_URL = 'http://localhost:8000/api/'
 
 
 def drop_dat_db():
@@ -31,7 +31,7 @@ def post_cashtag():
         'tag_type': 'support',
         'description_txt': 'Help fund our app!\nTurn our hackathon entry into something bigger!!',
         'video': '',
-        'image': 'img/open_source_library.png',
+        'image': 'img/emerge.png',
         'rewards': '',
     }
 
@@ -154,6 +154,8 @@ def create_more_sample_cashtags():
         'video': '',
         'image': 'img/miami_party.jpg',
         'rewards': '',
+        'money_collected': 170,
+        'supporters': ['neil'] * 17,
     }
     response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
@@ -169,6 +171,8 @@ def create_more_sample_cashtags():
         'video': '',
         'image': 'img/garage-sale.jpg',
         'rewards': '',
+        'money_collected': 42,
+        'supporters': ['neil'] * 11,
     }
     response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok
@@ -179,11 +183,13 @@ def create_more_sample_cashtags():
         'tag_name': '#315ne2ave-rent',
         'title': 'Pay Rent for 315 ne 2nd ave',
         'min_price': '1',
-        'tag_type': 'support',
+        'tag_type': 'private',
         'description_txt': 'Home renters at 315 ne 2nd ave, you can pay your monthly rent here.',
         'video': '',
         'image': 'img/apartment-building.jpg',
         'rewards': '',
+        'money_collected': 1250,
+        'supporters': ['neil'] * 4,
     }
     response = requests.post(url='{}cashtag'.format(API_URL), json=data)
     assert response.ok

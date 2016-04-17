@@ -80,9 +80,11 @@ def cashtag_create(request):
     rewards = post_data.get('rewards')
     days_to_live = post_data.get('days_to_live') or 30
     tag_name = post_data.get('tag_name')
+    money_collected = post_data.get('money_collected') or 0
+    supporters = post_data.get('supporters') or []
 
     try:
-        int_id = CashTag.objects().order_by('int_id').limit(1)[0].int_id + 1
+        int_id = CashTag.objects().order_by('-int_id').limit(1)[0].int_id + 1
     except (DoesNotExist, IndexError) as e:
         int_id = 0
     except Exception as e:
@@ -108,6 +110,8 @@ def cashtag_create(request):
         image=image,
         rewards=rewards,
         days_to_live=days_to_live,
+        money_collected=money_collected,
+        supporters=supporters
     )
     if cashtag.validate_cashtag():
         print('validated!')

@@ -1,3 +1,6 @@
+//var API_URL = 'http://45.55.34.6/api/';
+var API_URL = 'http://localhost:8000/api/';
+
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
@@ -63,9 +66,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds,$timeout, $ionicHistory, $ionicLoading) {
-  $scope.hash = HashFeeds.get($stateParams.hashfeedId);
+.controller('HashFeedDetailCtrl', function($scope, $stateParams, HashFeeds,$timeout, $ionicHistory, $ionicLoading, $http) {
+    $scope.priceChosen = 25;
+    $scope.hash = HashFeeds.get($stateParams.hashfeedId);
   $scope.ui = {
+    pledgeCustomPriceAmount: null,
     showPledgeOptions: 0,
     showThanks: 0,
     pledgeAmount: 0,
@@ -82,24 +87,54 @@ angular.module('starter.controllers', [])
       $scope.ui.pledgeOptions[i].selected = 0;
     };
     pledgeOption.selected = 1;
+    $scope.priceChosen = pledgeOption.price;
   };
 
+    $scope.pledgeCustomPrice = function() {
+      var amount = parseInt($scope.ui.pledgeCustomPriceAmount);
+      if (!!amount || amount <= 0) {
+        $scope.priceChosen = amount;
+      } else {
+        $scope.priceChosen = undefined;
+      }
+    };
+
   $scope.pledgeAction = function(){
-    var hash = $scope.ui.hash;
+    var hash = $scope.hash;
     if($scope.ui.showPledgeOptions){
+      if (!$scope.priceChosen) {
+        $ionicLoading.show({
+          template: 'Please select an amount.',
+          hideOnStateChange: true,
+          duration: 2500
+        });
+        return;
+      }
       //TODO: sent info to the servers
       HashFeeds.pledge(hash).then(function(data){
         console.log(data);
         if(data){
-          $scope.ui.showThanks = 1;
           $ionicLoading.show({
-             template: 'Loading...',
+             template: 'Sending Payment',
              hideOnStateChange: true,
-             duration: 1500,
+             duration: 4000
           });
-          $timeout(function(){
-            $ionicHistory.goBack(-1);
-          }, 1000);
+          $http.get(API_URL + 'pay?amount=' + $scope.priceChosen + '&cashtag_id=' + hash.id).then(
+            function(response) {
+              $scope.ui.showThanks = 1;
+              console.log(response);
+              hash.raised_money = response.data.raised_money;
+              $timeout(function(){$ionicHistory.goBack(-1)}, 1000);
+            },
+            function(error) {
+              console.log(error);
+              $ionicLoading.show({
+                template: 'An Error Occured.',
+                hideOnStateChange: true,
+                duration: 2000
+              });
+            }
+          );
         }
         // $scope.hash = data;
         // $scope.ui.showDetail = 1;
