@@ -129,4 +129,36 @@ angular.module('starter.controllers', [])
       $scope.ui.showShare = 1;
     }
   }
-});
+})
+
+.controller('HashSearchCtrl', function($scope, HashFeeds,$timeout) {
+  $scope.hashfeeds = HashFeeds.all();
+  $scope.query = {}
+  $scope.queryBy = '$'
+  $scope.doRefresh = function(){
+    $timeout(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 2000);
+    return;
+  };
+  $scope.remove = function(hashfeed) {
+    HashFeeds.remove(hashfeed);
+  };
+})
+
+.controller('MyHashsCtrl', function($scope, HashFeeds,$timeout) {
+  $scope.hashfeeds = HashFeeds.allMyHashs();
+  $scope.doRefresh = function(){
+    $timeout(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 2000);
+    return;
+  };
+  $scope.remove = function(hashfeed) {
+    HashFeeds.remove(hashfeed);
+  };
+})
+
+
+
+;

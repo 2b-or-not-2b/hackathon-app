@@ -57,7 +57,7 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [{
+  var hashfeeds = [{
     id: 0,
     tag_name: '#mywedding',
     title: 'Happy forever!!!',
@@ -133,19 +133,58 @@ angular.module('starter.services', [])
     name: 'Mike Harrington',
     lastText: 'This is wicked good ice cream.',
     face: 'img/mike.png'
-  }];
+  },
+    {
+        id: 69,
+        tag_name: '#js_open_source_library',
+        title: 'Support this great project!!!',
+        desc: 'AniJS was created two years ago .....',
+        video: '',
+        image: 'img/rock_band.jpg',
+        supporters: [],
+        rewards: [],
+        raised_money: 456.80,
+        share_url: 'http://somethingcool.com',
+        min_price: 10,
+        name: 'Perry Governor',
+        lastText: 'Look at my mukluks!',
+        face: 'img/perry.png'
+      }
+    ];
 
+  var myhashs = [
+    {
+        id: 69,
+        tag_name: '#js_open_source_library',
+        title: 'Support this great project!!!',
+        desc: 'AniJS was created two years ago .....',
+        video: '',
+        image: 'img/rock_band.jpg',
+        supporters: [],
+        rewards: [],
+        raised_money: 456.80,
+        share_url: 'http://somethingcool.com',
+        min_price: 10,
+        name: 'Perry Governor',
+        lastText: 'Look at my mukluks!',
+        face: 'img/perry.png'
+      }
+  ];
   return {
     all: function() {
-      return friends;
+      return hashfeeds;
+    },
+
+    allMyHashs: function(){
+      return myhashs;
     },
     remove: function(chat) {
-      friends.splice(friends.indexOf(hashfeed), 1);
+      hashfeeds.splice(hashfeeds.indexOf(hashfeed), 1);
     },
     get: function(chatId) {
-      for (var i = 0; i < friends.length; i++) {
-        if (friends[i].id === parseInt(chatId)) {
-          return friends[i];
+      for (var i = 0; i < hashfeeds.length; i++) {
+        if (hashfeeds[i].id === parseInt(chatId)) {
+          return hashfeeds[i];
         }
       }
       return null;

@@ -111,9 +111,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'HashCreateCtrl'
       }
     }
+  })
+
+  .state('tab.hashsearch', {
+    url: '/hashsearch',
+    views: {
+      'tab-hashsearch': {
+        templateUrl: 'templates/tab-hashsearch.html',
+        controller: 'HashSearchCtrl'
+      }
+    }
+  })
+
+  .state('tab.myhashs', {
+    url: '/myhashs',
+    views: {
+      'tab-myhashs': {
+        templateUrl: 'templates/tab-myhashs.html',
+        controller: 'MyHashsCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/hashfeed');
 
 });
