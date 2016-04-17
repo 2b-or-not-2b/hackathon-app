@@ -46,7 +46,8 @@ angular.module('starter.controllers', [])
     var matching_cashtag;
     for (var i = 0; i < $scope.hashfeeds.length; i++) {
       var cashtag = $scope.hashfeeds[i];
-      if (cashtag.tag_name.trim() == looking_for_tag) {
+      if (cashtag.tag_name.trim() == looking_for_tag ||
+        ('#' + cashtag.tag_name.trim()) == looking_for_tag) {
           matching_cashtag = cashtag;
         break
       }
@@ -56,10 +57,10 @@ angular.module('starter.controllers', [])
   }
 
   $scope.doRefresh = function(){
-    $timeout(function(){
+    HashFeeds.all().then(function(data){
+      $scope.hashfeeds = data;
       $scope.$broadcast('scroll.refreshComplete');
-    }, 2000);
-    return;
+    });
   };
   $scope.remove = function(hashfeed) {
     HashFeeds.remove(hashfeed);
